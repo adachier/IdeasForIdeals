@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4">Articles</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ article.titre }}</td>
+            </tr>
+            <tr>
+                <th>Pourquoi ?</th>
+                <td>{{ article.why |raw}}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ article.description |raw}}</td>
+            </tr>
+            <tr>
+                <th>Crée le</th>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Modifié le</th>
+                <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{asset('uploads/images/featured/' ~ article.image1 )}}" alt="{{article.image1}}" style="width: 50vw"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center m-4">
+        <a class="btn btn-primary" href="{{ path('app_profile') }}">Revenir au profil</a>
+    </div>
+
+{% endblock %}

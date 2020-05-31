@@ -1,0 +1,17 @@
+/*================= Responsive Register et Login ===============*/
+@media screen and (max-width: 1000px){
+    .hide{
+        display: none;
+    }
+    .grow{
+        width: 70vw;
+    }
+}
+@media screen and (max-width: 800px){
+    .rondsHome{
+        flex-direction: column;
+    }
+}
+.profile {
+    padding: 0!important;
+}

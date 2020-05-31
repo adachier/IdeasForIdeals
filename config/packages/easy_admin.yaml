@@ -1,0 +1,73 @@
+easy_admin:
+    # On définit le nom de l'interface d'administration
+    site_name: 'Gestion Ideas For Ideals'
+    # On définit l'affichage de l'utilisateur
+    user:
+        display_name: true
+        display_avatar: false
+    design:
+        # Ces lignes sont utiles pour CKEditor
+        form_theme:
+            - "@EasyAdmin/form/bootstrap_4.html.twig"
+            - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+        # Ces lignes définiront notre menu
+        menu:
+            - { label: 'Articles' }
+            - { entity: 'Articles', label: 'Articles', icon: 'book' }
+            - { label: 'Catégories' }
+            - { entity: 'Categories', label: 'Catégories', icon: 'tag' }
+            - { label: 'Utilisateurs' }
+            - { entity: 'User', label: 'Utilisateurs', icon: 'user' }
+            - { label: 'Commentaires' }
+            - { entity: 'Commentaires', label: 'Commentaires', icon: 'comment' }
+    formats:
+        # Ici on définit le format des dates
+        datetime: 'd/m/Y à H:i'
+    entities:
+        Articles:
+            # Correspond au fichier Articles.php
+            class: App\Entity\Articles
+            # On définit ci-dessous le contenu de la liste qui affichera les articles et les critères de tri
+            list:
+                fields:
+                    - id
+                    - titre
+                    # Le champ ci-dessous affichera l'image de l'article
+                    - { property: 'created_at', label: 'Créé' }
+                    # Les catégories et les mots-clé sont listés ci-dessous
+                    - { property: 'categories', label: 'Catégories', type: 'array'}
+                sort: ['created_at', 'desc']
+            # On définit ci-dessous le contenu du formulaire d'ajout ou modification d'article
+            form:
+                fields:
+                    - titre
+                    # Affichage de l'éditeur Wysiwyg
+                    - { property: 'why', label: 'Quel problème voulez-vous mettre en avant ?', type: 'fos_ckeditor', type_options: { config_name: 'main_config' }}
+                    - { property: 'description', label: 'Quelle idée pourrait palier à ce dernier ?', type: 'fos_ckeditor', type_options: { config_name: 'main_config' }}
+                    # Affichage du champ d'ajout d'image
+                    - { property: 'imageFile', label: 'Choisissez un image', type: 'vich_image' }
+                    - users
+                    # Les catégories peuvent s'afficher avec une sélection multiple
+                    - { property: 'categories', label: 'Catégories', type: 'entity', type_options: { class: 'App\Entity\Categories', multiple: true,by_reference: false, attr: { data-widget: 'select2' }}}
+        User:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            list:
+                fields:
+                    - id
+                    - username
+                    - { property: 'roles', label: 'Rôles', type: json_array}
+            form:
+                fields:
+                    - username
+                    - { property: 'roles', label: 'Rôles', type: choice, type_options: {expanded: true, multiple: true, choices: {'Utilisateur':'ROLE_USER', 'Administrateur':'ROLE_ADMIN'}}}
+        Categories:
+            class: App\Entity\Categories
+            form:
+                fields:
+                    - nom
+                    - { property: 'imageCat', label: 'Choisissez un image', type: 'vich_image' }
+                    - { property: 'description', label: 'Description', type: 'fos_ckeditor', type_options: { config_name: 'main_config' }}
+        Commentaires:
+            class: App\Entity\Commentaires
+

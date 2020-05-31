@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition{% endblock %}
+
+{% block body %}
+    <h1 class="m-4 text-center">Edition d'un Article</h1>
+        {{ include('articles/_form.html.twig', {'button_label': 'Save'}) }}
+        <div class="d-flex justify-content-around mt-4">
+        {{ include('articles/_delete_form.html.twig') }}
+        <a class="btn btn-primary" href="{{ path('app_profile') }}">Retour à la page profil</a>
+        </div>
+{% endblock %}

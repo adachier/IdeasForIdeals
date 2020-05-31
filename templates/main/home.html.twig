@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ideas For Ideals{% endblock %}
+
+{% block body %}
+
+<div class="d-flex flex-column mt-5  align-items-center" style="font-family: 'Spartan', sans-serif;">
+    <img src="{{asset('images/idea.jpg')}}" style="width: 100px; height:150px;">
+    <h1 class="mt-5" style="font-family: 'Spartan', sans-serif;">Ideas for Ideals</h1>
+    <hr class="mt-5" style="width: 40vw; border: 1px solid #656565">
+    <h2 class="mt-5 mb-4 text-center" style="font-family: 'Spartan', sans-serif;">How does it work ?</h2>
+</div>
+
+
+<div style="width: 80vw; margin: 0 auto;">
+    <div class="d-flex m-4" style="font-family: 'Spartan', sans-serif;">
+        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; color: #BFA71F; font-size: 2.5rem;">
+            <i>1</i>
+        </div>
+        <div class="d-flex align-items-center justify-content-center ml-4" style="width: 30vw;">
+            <p>Before getting started, you can create an account to post your Ideas and start voting for some.</p>
+        </div>
+    </div>
+    <div class="d-flex m-4 flex-row-reverse" style="font-family: 'Spartan', sans-serif;">
+        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; color: #BFA71F; font-size: 2.5rem;">
+            <i>2</i>
+        </div>
+        <div class="d-flex align-items-center justify-content-center ml-4" style="width: 30vw;">
+            <p>Once connected, you can write an article about a subject you thought and publish it.</p>
+        </div>
+    </div>
+    <div class="d-flex m-4" style="font-family: 'Spartan', sans-serif;">
+        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; color: #BFA71F; font-size: 2.5rem;">
+            <i>3</i>
+        </div>
+        <div class="d-flex align-items-center justify-content-center ml-4" style="width: 30vw;">
+            <p>It's a good way to see if your ideas are looking attractive for people who cares !</p>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center" style="margin-top: 100px;">
+    <a class="btn btn-warning" href="{{ path('app_register') }}" style="border-radius: 1.5rem;">Sign Up</a>
+</div>
+<div class="d-flex flex-column m-5  align-items-center">
+<h3 style="font-family: 'Spartan', sans-serif;">Our Subjects</h3>
+</div>
+
+
+{% for category in categories %}
+<div class="d-flex align-items-center justify-content-center categ" style="width: 50vw; height: 250px; margin: 0 auto; text-align: center; background-image: url('{{asset('uploads/images/featured/' ~ category.imgacc )}}'); background-size: cover;">
+    <a href="{{path('categories', {'id': category.id})}}" style="font-size: 1.5rem; font-weight: bold; text-decoration: none;">{{category.nom}}</a>
+</div>
+{% endfor %}
+
+<div class="d-flex flex-column m-5  align-items-center" style="font-family: 'Spartan', sans-serif;">
+    <h4>Some stats</h4>
+    <div class="d-flex rondsHome">
+        <div class="d-flex flex-column">
+        <div class="d-flex rounded-circle m-5 align-items-center justify-content-center" style="width: 100px; height: 100px; background-color: #242222;">
+            <img src="{{ asset('images/user.png') }}" style="width: 50px;"alt="">
+        </div>
+        <h4 class="text-center" style="color: #BFA71F;">Users</h4>
+        <h5 class="text-center">{{users | length}}</h5>
+        </div>
+        <div class="d-flex flex-column">
+        <div class="d-flex rounded-circle m-5 align-items-center justify-content-center" style="width: 100px; height: 100px; background-color: #242222;">
+            <img src="{{ asset('images/news.png') }}" style="width: 50px;"alt="">
+        </div>
+        <h4 class="text-center" style="color: #BFA71F;">Ideas</h4>
+        <h5 class="text-center">{{articles | length}}</h5>
+        </div>
+        <div class="d-flex flex-column">
+        <div class="d-flex rounded-circle m-5 align-items-center justify-content-center" style="width: 100px; height: 100px; background-color: #242222;">
+            <img src="{{ asset('images/calendar.png') }}" style="width: 50px;"alt="">
+        </div>
+        <h4 class="text-center" style="color: #BFA71F;">Since</h4>
+        <h5 class="text-center"> 2020/04</h5>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

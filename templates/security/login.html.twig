@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+<div class="col-12 d-flex">
+    <div class="hide" style="background-image:url('{{ asset('images/login.jpg') }}'); background-size: cover;
+        width:45vw; height:70vh;
+        margin-top: 10px;">
+    </div>
+    <div class="col-6 m-auto d-flex justify-content-center flex-column">
+        <h1 class="text-center mb-4">Se connecter</h1>
+        <label for="inputUsername" class="m-4">Votre pseudo</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+        <label for="inputPassword" class="m-4">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="checkbox m-3 text-center">
+            <label>
+                <input type="checkbox" name="_remember_me" > Se souvenir de moi
+            </label>
+        </div>
+        <button class="btn btn-md btn-success" type="submit">Se connecter</button>
+    </div>
+</div>
+</form>
+{% endblock %}

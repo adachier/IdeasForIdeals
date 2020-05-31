@@ -1,0 +1,12 @@
+<div class="container">
+{{ form_start(form) }}
+    <div class="row">{{ form_row(form.titre) }}</div>
+    <div class="row">{{ form_row(form.why) }}</div>
+    <div class="row">{{ form_row(form.description) }}</div>
+    <div class="row">{{ form_row(form.imageFile) }}</div>
+    <div class="row">{{ form_row(form.categories) }}</div>
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}
+</div>

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{cat.nom}} {% endblock %}
+
+
+
+{% block body %}
+    <div style="width: 100vw; height: 600px; background-image: url('{{asset('uploads/images/featured/' ~ cat.imgacc )}}'); background-size: cover;">
+        <div style="position: absolute; top: 300px; right: 150px; max-width: 30rem; font-size: 1.5rem;">
+            <h1 class="m-5">{{cat.nom}}</h1>
+            <p>{{cat.description| raw}}</p>
+        </div>
+    </div>
+    <h2 class="text-center mt-5">List of Ideas in {{cat.nom}} category</h2>
+    {% for article in cat.articles %}
+    <div class="card m-5" style="max-width: 90vw;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img class="bd-placeholder-img m-1" src="{{asset('uploads/images/featured/' ~ article.image1 )}}" width="90%" height="300" preserveAspectRatio="xMidYMid slice" role="img"/>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{article.titre}}</h5>
+                    <p class="card-text">{{article.why| raw}}</p>
+                    <a href="{{ path('post_like', {'id': article.id}) }}" class="btn btn-secondary js-like">
+                    {% if app.user and article.isLikedByUser(app.user) %}
+                        <i class="fa fa-pencil-square"></i>
+                    {% else %}
+                        <i class="fa fa-pencil-square-o"></i>
+                    {% endif %}
+                    <span class="js-likes">{{article.likes | length}}</span>
+                    <span class="js-label">Up votes</span>
+                    </a>
+                    <p class="card-text mt-4"><small class="text-muted">Created at {{article.updatedat |date('d-m-Y')}}</small></p>
+                    <a class="btn btn-primary mt-4"href="{{path('articles', {'id': article.id})}}">See details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function onClickBtnLike(event){
+            event.preventDefault();
+
+            const url = this.href;
+            const spanCount = this.querySelector('span.js-likes');
+            const icone = this.querySelector('i');
+
+            axios.get(url).then(function(response){
+                spanCount.textContent = response.data.likes;
+
+                if(icone.classList.contains('fa-pencil-square-o'))
+                    icone.classList.replace('fa-pencil-square-o','fa-pencil-square');
+                else 
+                    icone.classList.replace('fa-pencil-square', 'fa-pencil-square-o');
+            })
+        }
+
+        document.querySelectorAll('a.js-like').forEach(function(link){
+            link.addEventListener('click', onClickBtnLike);
+        })
+    </script>
+{% endblock %}
